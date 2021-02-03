@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 
 namespace ArrayObject
 {
@@ -9,9 +10,16 @@ namespace ArrayObject
         /// </summary>
         public static void ChangeElementsInArray(int[] nums)
         {
-            // TODO: delete code line below, write down your solution 
-            // Hint: Don`t create or initialize any array, work only with given 'numbs'
-            throw new NotImplementedException();
+            for (int i = 0; i < nums.Length / 2; i++)
+            {
+                var invertIndex = nums.Length - 1 - i;
+
+                if (nums[i] % 2 != 0 || nums[invertIndex] % 2 != 0) continue;
+
+                var buffer = nums[i];
+                nums[i] = nums[invertIndex];
+                nums[invertIndex] = buffer;
+            }
         }
 
         /// <summary>
@@ -19,9 +27,17 @@ namespace ArrayObject
         /// </summary>
         public static int DistanceBetweenFirstAndLastOccurrenceOfMaxValue(int[] nums)
         {
-            // TODO: delete code line below, write down your solution 
-            // Hint: Don`t modify array 'nums'
-            throw new NotImplementedException();
+            var result = 0;
+
+            if (nums.Length <= 0) return result;
+
+            var firstOccurrenceOfMaxValue = Array.IndexOf(nums, nums.Max());
+            var lastOccurrenceOfMaxValue = Array.LastIndexOf(nums, nums.Max());
+
+            if (firstOccurrenceOfMaxValue != lastOccurrenceOfMaxValue)
+                result = lastOccurrenceOfMaxValue - firstOccurrenceOfMaxValue;
+
+            return result;
         }
 
         /// <summary>
@@ -29,9 +45,17 @@ namespace ArrayObject
         /// </summary>
         public static void ChangeMatrixDiagonally(int[,] matrix)
         {
-            // TODO: delete code line below, write down your solution 
-            // Hint: Don`t create or initialize array, work only with given 'matrix'
-            throw new NotImplementedException();
+            if (matrix.GetLength(0) != matrix.GetLength(1)) return;
+
+            for (int i = 0; i < matrix.GetLength(0); i++)
+            {
+                for (int j = 0; j < matrix.GetLength(1); j++)
+                {
+                    if (i == j) continue;
+
+                    matrix[i, j] = i < j ? 1 : 0;
+                }
+            }
         }
     }
 }
